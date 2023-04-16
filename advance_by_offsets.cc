@@ -6,7 +6,7 @@ using std::min;
 using std::max;
 bool CanReachEnd(const vector<int>& max_advance_steps) {
     int n = max_advance_steps.size();
-    vector<int> minimum_jump_array(n, INFINITY);
+    vector<int> minimum_jump_array(n, INT_MAX);
     minimum_jump_array[0] = 0;
     vector<int> jump_path_array;
     for (int i = 1; i < n; i++)
