@@ -4,13 +4,34 @@
 #include "test_framework/test_failure.h"
 using std::string;
 
-string IntToString(int x) {
-  // TODO - you fill in here.
-  return "0";
+string IntToString(int x) 
+{
+    bool isnegative = false;
+    if (x < 0)
+    {
+        isnegative = true;
+    }
+    string s;
+    do  
+    {
+        s += '0' + abs(x / 10);
+        x /= 10;
+    } while (x);
+
+    if (isnegative)
+    {
+        s += '-'; //Adds the negativ sign in the last
+    }
+    return { s.rbegin(),s.rend() };
 }
 int StringToInt(const string& s) {
-  // TODO - you fill in here.
-  return 0;
+    int result = 0;
+    for (int i = s[0] == '-' ? 1 : 0; i < s.size(); ++i)
+    {
+        const int digit = s[i] - '0';
+        result = result * 10 + digit;
+    }
+    return s[0] == '-' ? -result:result;
 }
 void Wrapper(int x, const string& s) {
   if (stoi(IntToString(x)) != x) {

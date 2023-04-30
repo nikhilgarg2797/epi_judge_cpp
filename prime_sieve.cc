@@ -28,7 +28,7 @@ vector<int> GeneratePrimes(int n) {
             // Note that we need to use long long for j because p^2 might overflow.
             for (long long j = 2LL * i * i + 6 * i + 3; j < size; j += p) {
                 is_prime[j] = false;
-            }
+            } 
         }
     }
     return primes;
