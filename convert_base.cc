@@ -26,7 +26,7 @@ int convertToDecimal(const string& num, int base)
     // check if negative
     bool negative = num[0] == '-' ? true : false;
 
-    for (int i = negative ? 1 : 0; i < num.size(); i++) {
+    for (int i = negative ? 1 : 0; i < num.size(); i++)  {
         // multiply by base value
         num_10 = num_10 * base;
         // take out the digit from the number
@@ -43,14 +43,50 @@ int convertToDecimal(const string& num, int base)
     return negative ? -num_10 : num_10;
 }
 
+// Function to return equivalent
+// character of a given value
+char reVal(int num)
+{
+    if (num >= 0 && num <= 9)
+        return (char)(num + '0');
+    else
+        return (char)(num - 10 + 'A');
+}
+
 string convertToBase(int num, int base)
 {
-    if (num == 0)
-        return "";
-    // now the remainder can be single or multiple digit long
-    return convertToBase(num / base, base) +
-        (char)(num % base < 10 ? num % base + '0' : (num % base) - 10 + 'A');
+    bool negative = false;
+    if (num < 0)
+    {
+        negative = true;
+        num = -num;
+    }
+    else if (num == 0)
+    {
+        return "0";
+    }
 
+    //Store the string
+    string res = "";
+
+    //Repeatedly divide num
+    // by base and take remainder
+    while (num > 0)
+    {
+        //update result
+        res = res + reVal(num % base);
+
+        //upadte num
+        num = num/base;
+    }
+
+    reverse(res.begin(), res.end());
+    if (negative)
+    {
+        res.insert(res.begin(),'-');
+    }
+
+    return res;
 }
 
 string ConvertBase(const string& num_as_string, int b1, int b2) {

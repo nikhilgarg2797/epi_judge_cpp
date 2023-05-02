@@ -8,7 +8,19 @@ using std::string;
 using std::vector;
 
 int ReplaceAndRemove(int size, char s[]) {
-  // TODO - you fill in here.
+    int write_index = 0, a_count = 0;
+    for ( int i = 0; i< size -1; i++)
+    {
+        if (s[i] == 'a')
+        {
+
+        }
+        
+        if (s[i] != 'b')
+        {
+            s[write_index] = s[i];
+        }
+    }
   return 0;
 }
 vector<string> ReplaceAndRemoveWrapper(TimedExecutor& executor, int size,
