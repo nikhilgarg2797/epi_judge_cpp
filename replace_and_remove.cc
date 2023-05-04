@@ -1,3 +1,18 @@
+/*
+    Problem:
+        Given an array of characters. There are two operations to be performed on these characters:
+        'a': replace it with 'dd'
+        'b': remove the character from the string
+        Also given is the size of the array currently having the characters. The array is large
+        enough to accomodate the characters after applying the operations
+    Input:
+        str: array of chars
+        n: no. of characters
+    Output:
+       Array of chars with applied ops
+    TC: O(n)
+*/
+
 #include <iterator>
 #include <string>
 #include <vector>
@@ -8,21 +23,41 @@ using std::string;
 using std::vector;
 
 int ReplaceAndRemove(int size, char s[]) {
-    int write_index = 0, a_count = 0;
-    for ( int i = 0; i< size -1; i++)
-    {
-        if (s[i] == 'a')
-        {
+    // First we remove 'b's from the string
+    // then we start the traversal from the back and scan the characters
+    // if a character is 'a', then we write 'd' two times
+    // else we write any other character once
 
+
+    // Forward iteration: remove "b"s and count the number of "a"s.
+    int write_idx = 0, a_count = 0;
+    for (int i = 0; i < size; ++i) {
+        if (s[i] != 'b') {
+            s[write_idx++] = s[i];
         }
-        
-        if (s[i] != 'b')
-        {
-            s[write_index] = s[i];
+        if (s[i] == 'a') {
+            ++a_count;
         }
     }
-  return 0;
+
+    // Backward iteration: replace "a"s with "dd"s starting from the end.
+    int cur_idx = write_idx - 1;
+    write_idx = write_idx + a_count - 1;
+    const int final_size = write_idx + 1;
+    while (cur_idx >= 0) {
+        if (s[cur_idx] == 'a') {
+            s[write_idx--] = 'd';
+            s[write_idx--] = 'd';
+        }
+        else {
+            s[write_idx--] = s[cur_idx];
+        }
+        --cur_idx;
+    }
+    return final_size;
 }
+
+
 vector<string> ReplaceAndRemoveWrapper(TimedExecutor& executor, int size,
                                        const vector<string>& s) {
   std::vector<char> s_copy(s.size(), '\0');
