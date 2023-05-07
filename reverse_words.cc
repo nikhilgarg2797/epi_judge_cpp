@@ -5,9 +5,43 @@
 using std::string;
 
 void ReverseWords(string* s) {
-  // TODO - you fill in here.
-  return;
+ /*   
+    int i = 0;
+    size_t n = s->length();
+    while (i < n)
+    {
+        while (i < n && s->find(" ",i))
+        {
+            i++;
+            if (i >= n) break;
+            int j = i + 1;
+            while (j < n && !(s->find(" ", j)))
+            {
+                j++;
+                string sub = s->substr(i, j - i);
+                if (result->length() == 0) *result = sub;
+                else
+                {
+                    *result = sub + " " + *result;
+                    i = j + 1;
+                }
+            }
+        }
+    }
+*/
+//==========================
+        // First, reverses the whole string.
+        reverse(begin(*s), end(*s));
+        size_t start = 0, finish;
+        while ((finish = s->find(" ", start)) != string::npos) {
+            // Reverses each word in the string.
+            reverse(begin(*s) + start, begin(*s) + finish);
+            start = finish + 1;
+        }
+        // Reverses the last word.
+        reverse(begin(*s) + start, end(*s));
 }
+
 string ReverseWordsWrapper(TimedExecutor& executor, string s) {
   string s_copy = s;
 
